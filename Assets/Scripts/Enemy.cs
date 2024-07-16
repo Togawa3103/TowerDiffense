@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool hitBlock = false;
     public int hp;
     public float speed;
     public int gold;
@@ -33,18 +35,38 @@ public class Enemy : MonoBehaviour
                 transform.position += v.normalized * speed * Time.deltaTime;
                 break;
         }
-          
 
-        var pv = transform.position- route.points[pointIndex].transform.position;
-        if (pv.magnitude>=v.magnitude) {
+
+        //var pv = transform.position- route.points[pointIndex].transform.position;
+        //if (pv.magnitude>=v.magnitude) {
+        if (gameObject.layer == 10)
+        {
+            if (transform.position == route.points[pointIndex + 1].transform.position)
+            {
+                if (gameObject.layer == 10) Debug.Log("Next");
+                pointIndex++;
+                if (pointIndex >= route.points.Length - 1)
+                {
+                    if (gameObject.layer == 10) Debug.Log(gameObject);
+                    Destroy(gameObject);
+                    //ToDo プレイヤーにダメージ
+                    FindObjectOfType<Player>().hp--;
+                }
+            }
+        }
+        else {
+            var pv = transform.position- route.points[pointIndex].transform.position;
+            if (pv.magnitude>=v.magnitude) {
             pointIndex++;
-            if (pointIndex>=route.points.Length-1) {
-                if(gameObject.layer==10)Debug.Log(gameObject);
+            if (pointIndex >= route.points.Length - 1)
+            {
+                if (gameObject.layer == 10) Debug.Log(gameObject);
                 Destroy(gameObject);
                 //ToDo プレイヤーにダメージ
                 FindObjectOfType<Player>().hp--;
             }
         }
+    }
     }
 
     private Vector3 SearchEnemy() {
@@ -53,8 +75,11 @@ public class Enemy : MonoBehaviour
         if (collider != null)
         {
             Enemy targetEnemy = collider.GetComponent<Enemy>();
-            retVector3 = targetEnemy.route.points[targetEnemy.pointIndex + 1].transform.position - transform.position;
-            var collider_wall = Physics2D.OverlapBox(transform.position, new Vector2(0.0f,0.0f), LayerMask.GetMask("Block"));
+            
+            if (!hitBlock) {
+                retVector3 = targetEnemy.route.points[targetEnemy.pointIndex + 1].transform.position - transform.position;
+            }
+            /*var collider_wall = Physics2D.OverlapBox(transform.position, new Vector2(0.0f,0.0f), LayerMask.GetMask("Block"));
             if (collider_wall != null)
             {
 
@@ -76,7 +101,7 @@ public class Enemy : MonoBehaviour
                 {
                     retVector3.y = 0;
                 }
-            }
+            }*/
             
             /*
             RaycastHit[] _raycastHits = new RaycastHit[10];
@@ -108,9 +133,20 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            retVector3 = route.points[pointIndex + 1].transform.position - route.points[pointIndex].transform.position;
+            
+            retVector3 = route.points[pointIndex + 1].transform.position - transform.position;
+            
         }
         return retVector3;
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag=="Block") {
+            Debug.Log("hit Block!");
+            hitBlock = true;
+        }
+    }
+
 }

@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
                     }
                 }
                 break;
-            case 10:
+            case 10: //ÉqÅ[ÉâÅ[
                 v = SearchEnemy();
                 transform.position += v.normalized * speed * Time.deltaTime;
                 if (transform.position == route.points[pointIndex+1].transform.position)

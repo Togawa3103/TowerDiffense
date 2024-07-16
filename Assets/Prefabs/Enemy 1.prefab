@@ -226,7 +226,6 @@ GameObject:
   - component: {fileID: 3381734002229273548}
   - component: {fileID: 8559373301242417503}
   - component: {fileID: 5636172432102768138}
-  - component: {fileID: 7838489944282585564}
   m_Layer: 10
   m_Name: Enemy 1
   m_TagString: Untagged
@@ -249,7 +248,7 @@ Transform:
   - {fileID: 5459960568005267929}
   - {fileID: 8558216145701822964}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8559373301242417503
 BoxCollider2D:
@@ -308,36 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869ae7ec7b51659418f2d3a02eca6116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBlock: 0
   hp: 3
   speed: 0.5
   gold: 30
   route: {fileID: 0}
   pointIndex: 0
---- !u!50 &7838489944282585564
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8891766466201410440}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4

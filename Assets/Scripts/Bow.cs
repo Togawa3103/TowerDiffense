@@ -21,7 +21,7 @@ public class Bow : MonoBehaviour
     private IEnumerator SearchAndShot() {
         while (true) {
             yield return new WaitForSeconds(ShotInterval);
-            var collider = Physics2D.OverlapCircle(transform.position, ShotRange, LayerMask.GetMask("Enemy")) ;
+            var collider = Physics2D.OverlapCircle(transform.position, ShotRange, LayerMask.GetMask("Enemy", "Enemy_Healer")) ;
             if (collider != null )
             {
                 transform.rotation = Quaternion.FromToRotation(Vector3.right,collider.transform.position-transform.position);
